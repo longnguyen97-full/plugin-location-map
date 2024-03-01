@@ -21,11 +21,14 @@ function admin_load_scripts()
     wp_enqueue_script('bootstrap', LMAP__PLUGIN_URL . 'assets/bootstrap/js/bootstrap.min.js', array('jquery'), wp_rand(), true);
     // CSS
     wp_enqueue_style('bootstrap', LMAP__PLUGIN_URL . 'assets/bootstrap/css/bootstrap.min.css', null, wp_rand(), false);
+    wp_enqueue_style('main', LMAP__PLUGIN_URL . 'assets/css/style.css', null, wp_rand(), false);
     // Localize
     wp_localize_script('location-map-admin', 'appLocalizer', array(
         'apiUrl' => home_url('/wp-json'),
         'nonce' => wp_create_nonce('wp_rest'),
     ));
+    // Media popup
+    wp_enqueue_media();
 }
 
 /**
@@ -118,28 +121,27 @@ add_shortcode('lmap_shortcode', 'lmap_shortcode');
 
 // register ultilities
 include_once 'classes/class-register-metabox.php';
-// include_once 'classes/class-register-api.php';
 include_once 'classes/class-settings-rest-route.php';
 
 // Register settings and fields
-function my_custom_settings_init()
+function lmap_settings_init()
 {
     register_setting('my-custom-options-group', 'lmap_default_geocode');
 
-    add_settings_section('my-custom-options-section', 'Custom Options', 'my_custom_options_section_callback', 'my-custom-options');
+    add_settings_section('my-custom-options-section', 'Custom Options', 'lmap_options_section_callback', 'my-custom-options');
 
-    add_settings_field('my-custom-field', 'Custom Field', 'my_custom_field_callback', 'my-custom-options', 'my-custom-options-section');
+    add_settings_field('my-custom-field', 'Custom Field', 'lmap_field_callback', 'my-custom-options', 'my-custom-options-section');
 }
-add_action('admin_init', 'my_custom_settings_init');
+add_action('admin_init', 'lmap_settings_init');
 
 // Settings section callback
-function my_custom_options_section_callback()
+function lmap_options_section_callback()
 {
     echo '<p>Customize your options below:</p>';
 }
 
 // Field callback
-function my_custom_field_callback()
+function lmap_field_callback()
 {
     $value = get_option('lmap_default_geocode');
     echo '<input type="text" name="lmap_default_geocode" value="' . esc_attr($value) . '">';

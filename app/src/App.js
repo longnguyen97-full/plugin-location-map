@@ -10,6 +10,9 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
 
+// components
+import MapSearch from "./components/MapSearch";
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -19,11 +22,10 @@ class App extends React.Component {
       data: null,
       loading: true,
       error: null,
-      customIcon: new Icon({
-        iconUrl: markerIcon,
-        iconSize: [38, 38],
-      }),
       url: "http://wp-plugin-liam.wsl/wp-json/lmap/v1/settings/",
+      showSearch: true,
+      mapRef: React.createRef(),
+      markerSize: [38, 38],
     };
   }
 
@@ -54,7 +56,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { customIcon, data, loading, error } = this.state;
+    const { data, loading, error, showSearch, mapRef, markerSize } = this.state;
 
     if (loading) {
       return <div>Loading...</div>;
@@ -64,19 +66,33 @@ class App extends React.Component {
     }
 
     return (
-      <MapContainer center={data.default_geocode} zoom={8}>
+      <MapContainer
+        ref={mapRef}
+        center={data.default_geocode}
+        zoom={data.default_zoom}
+      >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         ></TileLayer>
         {data.markers.map((marker, key) => (
-          <Marker key={key} position={marker.geocode} icon={customIcon}>
+          <Marker
+            key={key}
+            position={marker.geocode}
+            icon={
+              new Icon({
+                iconUrl: data.marker_path ?? markerIcon,
+                iconSize: markerSize,
+              })
+            }
+          >
             <Popup>
               <h2>{marker.title}</h2>
               <p>{marker.content}</p>
             </Popup>
           </Marker>
         ))}
+        {showSearch && <MapSearch email={data.openstreetmap_email} />}
       </MapContainer>
     );
   }

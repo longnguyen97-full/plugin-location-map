@@ -44,6 +44,23 @@ class LMap_Settings_RestRoute
             $response['markers'][$key]['geocode'][] = get_post_meta($post->ID, 'longitude_key', true);
         }
 
+        // set zoom
+        $zoom = 0 ?: get_option('default_zoom');
+        $response['default_zoom'] = $zoom;
+
+        // set openstreetmap email
+        $email = 0 ?: get_option('openstreetmap_email');
+        $response['openstreetmap_email'] = $email;
+
+        // set custom marker
+        $marker_path = 0 ?: get_option('marker_path');
+        $response['marker_path'] = $marker_path;
+
+        // set marker size
+        $marker_width = 0 ?: get_option('marker_width');
+        $marker_height = 0 ?: get_option('marker_height');
+        $response['marker_size'] = [$marker_width, $marker_height];
+
         return rest_ensure_response($response);
     }
 
@@ -52,15 +69,25 @@ class LMap_Settings_RestRoute
         return true;
     }
 
-    public function saveSettings($req)
+    public function saveSettings($request)
     {
-        $latitude = sanitize_text_field($req['latitude']);
-        $longitude = sanitize_text_field($req['longitude']);
+        $latitude = sanitize_text_field($request['latitude']);
+        $longitude = sanitize_text_field($request['longitude']);
+        $zoom = sanitize_text_field($request['zoom']) ?: 0;
+        $email = sanitize_text_field($request['email']);
+        $marker_path = sanitize_text_field($request['markerPath']);
+        $marker_width = sanitize_text_field($request['markerWidth']) ?: 0;
+        $marker_height = sanitize_text_field($request['markerHeight']) ?: 0;
 
         update_option('default_latitude', $latitude);
         update_option('default_longitude', $longitude);
+        update_option('default_zoom', $zoom);
+        update_option('openstreetmap_email', $email);
+        update_option('marker_path', $marker_path);
+        update_option('marker_width', $marker_width);
+        update_option('marker_height', $marker_height);
 
-        return rest_ensure_response('success');
+        return rest_ensure_response('success | latitude: ' . $latitude . ' | longitude: ' . $longitude .  ' | zoom: ' . $zoom . ' | email: ' . $email . ' | marker path: ' . $marker_path . ' | marker width: ' . $marker_width . ' | marker height: ' . $marker_height);
     }
 
     public function saveSettingsPermission()
