@@ -27,8 +27,8 @@ class LMap_Settings_RestRoute
     public function getSettings()
     {
         // set default geocode
-        $latitude = 0 ?: get_option('default_latitude');
-        $longitude = 0 ?: get_option('default_longitude');
+        $latitude = 0 ?: get_option('lmap_default_latitude');
+        $longitude = 0 ?: get_option('lmap_default_longitude');
         $response['default_geocode'] = array($latitude, $longitude);
 
         // set markers
@@ -40,25 +40,26 @@ class LMap_Settings_RestRoute
         foreach ($posts as $key => $post) {
             $response['markers'][$key]['title'] = $post->post_title;
             $response['markers'][$key]['content'] = $post->post_content;
-            $response['markers'][$key]['geocode'] = get_post_meta($post->ID, 'latitude_key');
-            $response['markers'][$key]['geocode'][] = get_post_meta($post->ID, 'longitude_key', true);
+            $response['markers'][$key]['geocode'] = get_post_meta($post->ID, 'lmap_latitude_key');
+            $response['markers'][$key]['geocode'][] = get_post_meta($post->ID, 'lmap_longitude_key', true);
+            $response['markers'][$key]['marker'] = get_post_meta($post->ID, 'lmap_marker_key', true);
         }
 
         // set zoom
-        $zoom = 0 ?: get_option('default_zoom');
+        $zoom = 0 ?: get_option('lmap_default_zoom');
         $response['default_zoom'] = $zoom;
 
         // set openstreetmap email
-        $email = 0 ?: get_option('openstreetmap_email');
+        $email = 0 ?: get_option('lmap_openstreetmap_email');
         $response['openstreetmap_email'] = $email;
 
         // set custom marker
-        $marker_path = 0 ?: get_option('marker_path');
+        $marker_path = 0 ?: get_option('lmap_marker_path');
         $response['marker_path'] = $marker_path;
 
         // set marker size
-        $marker_width = 0 ?: get_option('marker_width');
-        $marker_height = 0 ?: get_option('marker_height');
+        $marker_width = 0 ?: get_option('lmap_marker_width');
+        $marker_height = 0 ?: get_option('lmap_marker_height');
         $response['marker_size'] = [$marker_width, $marker_height];
 
         return rest_ensure_response($response);
@@ -79,13 +80,13 @@ class LMap_Settings_RestRoute
         $marker_width = sanitize_text_field($request['markerWidth']) ?: 0;
         $marker_height = sanitize_text_field($request['markerHeight']) ?: 0;
 
-        update_option('default_latitude', $latitude);
-        update_option('default_longitude', $longitude);
-        update_option('default_zoom', $zoom);
-        update_option('openstreetmap_email', $email);
-        update_option('marker_path', $marker_path);
-        update_option('marker_width', $marker_width);
-        update_option('marker_height', $marker_height);
+        update_option('lmap_default_latitude', $latitude);
+        update_option('lmap_default_longitude', $longitude);
+        update_option('lmap_default_zoom', $zoom);
+        update_option('lmap_openstreetmap_email', $email);
+        update_option('lmap_marker_path', $marker_path);
+        update_option('lmap_marker_width', $marker_width);
+        update_option('lmap_marker_height', $marker_height);
 
         return rest_ensure_response('success | latitude: ' . $latitude . ' | longitude: ' . $longitude .  ' | zoom: ' . $zoom . ' | email: ' . $email . ' | marker path: ' . $marker_path . ' | marker width: ' . $marker_width . ' | marker height: ' . $marker_height);
     }

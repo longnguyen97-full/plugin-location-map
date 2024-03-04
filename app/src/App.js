@@ -55,6 +55,18 @@ class App extends React.Component {
       });
   }
 
+  getMarkerIcon(marker, commonMarker, defaultMarker) {
+    var markerIcon = defaultMarker;
+    if (commonMarker) {
+      markerIcon = commonMarker;
+    }
+    if (marker) {
+        console.log(marker);
+      markerIcon = marker;
+    }
+    return markerIcon;
+  }
+
   render() {
     const { data, loading, error, showSearch, mapRef, markerSize } = this.state;
 
@@ -81,8 +93,12 @@ class App extends React.Component {
             position={marker.geocode}
             icon={
               new Icon({
-                iconUrl: data.marker_path ?? markerIcon,
-                iconSize: markerSize,
+                iconUrl: this.getMarkerIcon(
+                  marker.marker,
+                  data.marker_path,
+                  markerIcon
+                ),
+                iconSize: data.marker_size ?? markerSize,
               })
             }
           >

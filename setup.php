@@ -19,6 +19,7 @@ function admin_load_scripts()
     // JS
     wp_enqueue_script('location-map-admin', LMAP__PLUGIN_URL . 'app/dist/admin.bundle.js', array('jquery', 'wp-element'), wp_rand(), true);
     wp_enqueue_script('bootstrap', LMAP__PLUGIN_URL . 'assets/bootstrap/js/bootstrap.min.js', array('jquery'), wp_rand(), true);
+    wp_enqueue_script('script', LMAP__PLUGIN_URL . 'assets/js/script.js', array('jquery'), wp_rand(), true);
     // CSS
     wp_enqueue_style('bootstrap', LMAP__PLUGIN_URL . 'assets/bootstrap/css/bootstrap.min.css', null, wp_rand(), false);
     wp_enqueue_style('main', LMAP__PLUGIN_URL . 'assets/css/style.css', null, wp_rand(), false);
@@ -126,11 +127,11 @@ include_once 'classes/class-settings-rest-route.php';
 // Register settings and fields
 function lmap_settings_init()
 {
-    register_setting('my-custom-options-group', 'lmap_default_geocode');
+    register_setting('lmap-options-group', 'lmap_default_geocode');
 
-    add_settings_section('my-custom-options-section', 'Custom Options', 'lmap_options_section_callback', 'my-custom-options');
+    add_settings_section('lmap-options-section', 'Custom Options', 'lmap_options_section_callback', 'lmap-options');
 
-    add_settings_field('my-custom-field', 'Custom Field', 'lmap_field_callback', 'my-custom-options', 'my-custom-options-section');
+    add_settings_field('lmap-field', 'Custom Field', 'lmap_field_callback', 'lmap-options', 'lmap-options-section');
 }
 add_action('admin_init', 'lmap_settings_init');
 
