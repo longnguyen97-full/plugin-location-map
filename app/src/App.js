@@ -9,6 +9,7 @@ import axios from "axios";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
+import Card from "react-bootstrap/Card";
 
 // components
 import MapSearch from "./components/MapSearch";
@@ -61,7 +62,6 @@ class App extends React.Component {
       markerIcon = commonMarker;
     }
     if (marker) {
-        console.log(marker);
       markerIcon = marker;
     }
     return markerIcon;
@@ -103,8 +103,14 @@ class App extends React.Component {
             }
           >
             <Popup>
-              <h2>{marker.title}</h2>
-              <p>{marker.content}</p>
+              <Card.Body>
+                <Card.Title>
+                  <h2>{marker.title}</h2>
+                </Card.Title>
+                <Card.Text>
+                  <div dangerouslySetInnerHTML={{ __html: marker.content }} />
+                </Card.Text>
+              </Card.Body>
             </Popup>
           </Marker>
         ))}
