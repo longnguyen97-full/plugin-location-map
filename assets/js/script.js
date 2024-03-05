@@ -7,7 +7,6 @@
     $("#lmap-select-media-box").html(
       `<button type="button" class="button button-primary" id="lmap-select-media-button">Select Marker</button>`
     );
-
     // Define behavior for your button
     $("#lmap-select-media-button").on("click", function () {
       // behavior here
@@ -44,6 +43,18 @@
       });
 
       mediaUploader.open();
-    });
+    }); // end script
+
+    /**
+     * remove marker
+     */
+    // Add a remove media button
+    $("#lmap-remove-media-box").html(
+      `<button type="button" class="button button-primary" id="lmap-remove-media-button">Remove Marker</button>`
+    );
+    // Define behavior for your button
+    $("#lmap-remove-media-button").on("click", function () {
+      $("#lmap-preview-media-box").html("");
+    }); // end script
   });
 })(jQuery);

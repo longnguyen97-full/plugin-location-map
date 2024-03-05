@@ -103,6 +103,7 @@ class LMap_Metabox
         ?>
         <div class="d-flex align-items-center gap-10">
             <div id="lmap-select-media-box"></div>
+            <div id="lmap-remove-media-box"></div>
             <div id="lmap-preview-media-box">
                 <?php
                 if (!empty($meta_value)) {
