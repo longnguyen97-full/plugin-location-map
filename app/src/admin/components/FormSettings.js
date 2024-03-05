@@ -20,8 +20,7 @@ class FormSettings extends React.Component {
       email: "",
       loader: "Save Settings",
       errors: {},
-      //   url: `${window.appLocalizer.apiUrl}/lmap/v1/settings`,
-      url: "https://pegasus.edu.vn/wp-json/lmap/v1/settings",
+      url: "http://wp-plugin-liam.wsl/wp-json/lmap/v1/settings/", // on localhost:3000
       inputInfo: {
         inputLatitude: {
           id: "latitude",
@@ -59,6 +58,10 @@ class FormSettings extends React.Component {
   }
 
   componentDidMount() {
+    // appLocalizer is not undefined: access custom url
+    if (window.appLocalizer) {
+      this.setState({ url: `${window.appLocalizer.apiUrl}/lmap/v1/settings/` });
+    }
     // fetch data from api
     this.fillSettingsData();
   }
