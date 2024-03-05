@@ -1,4 +1,4 @@
-(function ($) {
+jQuery(function ($) {
   $(document).ready(function () {
     /**
      * allow access media from post editor
@@ -57,4 +57,4 @@
       $("#lmap-preview-media-box").html("");
     }); // end script
   });
-})(jQuery);
+});

@@ -18,18 +18,12 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    // avoid error: insecure http request
-    if (
-      ["localhost:3000", "wp-plugin-liam.wsl"].includes(window.location.host)
-    ) {
-      var devUrl = "https://wp-plugin-liam.wsl/wp-json/lmap/v1/settings/";
-    }
     // manage states
     this.state = {
       data: null,
       loading: true,
       error: null,
-      url: devUrl ?? "", // for dev on react
+      url: "http://wp-plugin-liam.wsl/wp-json/lmap/v1/settings/", // on localhost:3000
       showSearch: true,
       mapRef: React.createRef(),
       markerSize: [38, 38],
@@ -38,8 +32,9 @@ class App extends React.Component {
 
   componentDidMount() {
     // appLocalizer is not undefined: access custom url
+    console.log(window.appLocalizer);
     if (window.appLocalizer) {
-      this.setState({ url: `${window.appLocalizer.apiUrl}/lmap/v1/settings` });
+      this.setState({ url: `${window.appLocalizer.apiUrl}/lmap/v1/settings/` });
     }
     // fetch data from api
     this.getSettings();
@@ -93,33 +88,34 @@ class App extends React.Component {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         ></TileLayer>
-        {data.markers.map((marker, key) => (
-          <Marker
-            key={key}
-            position={marker.geocode}
-            icon={
-              new Icon({
-                iconUrl: this.getMarkerIcon(
-                  marker.marker,
-                  data.marker_path,
-                  markerIcon
-                ),
-                iconSize: data.marker_size ?? markerSize,
-              })
-            }
-          >
-            <Popup>
-              <Card.Body>
-                <Card.Title>
-                  <h2>{marker.title}</h2>
-                </Card.Title>
-                <Card.Text>
-                  <div dangerouslySetInnerHTML={{ __html: marker.content }} />
-                </Card.Text>
-              </Card.Body>
-            </Popup>
-          </Marker>
-        ))}
+        {data.markers &&
+          data.markers.map((marker, key) => (
+            <Marker
+              key={key}
+              position={marker.geocode}
+              icon={
+                new Icon({
+                  iconUrl: this.getMarkerIcon(
+                    marker.marker,
+                    data.marker_path,
+                    markerIcon
+                  ),
+                  iconSize: data.marker_size ?? markerSize,
+                })
+              }
+            >
+              <Popup>
+                <Card.Body>
+                  <Card.Title>
+                    <h2>{marker.title}</h2>
+                  </Card.Title>
+                  <Card.Text>
+                    <div dangerouslySetInnerHTML={{ __html: marker.content }} />
+                  </Card.Text>
+                </Card.Body>
+              </Popup>
+            </Marker>
+          ))}
         {showSearch && <MapSearch email={data.openstreetmap_email} />}
       </MapContainer>
     );

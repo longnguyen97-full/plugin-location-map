@@ -1,0 +1,119 @@
+[33mcommit 94a9c6319d38964c1ee9d0c5f6e5a1cbdefb3821[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/dev[m[33m, [m[1;32mdev[m[33m)[m
+Author: liam <nhblong1234@gmail.com>
+Date:   Tue Mar 5 13:49:57 2024 +0700
+
+    [build] bundle scripts
+
+[33mcommit 1d72c2c1cf722fd2d0fbebee8432ae52f0099447[m
+Author: liam <nhblong1234@gmail.com>
+Date:   Tue Mar 5 13:49:40 2024 +0700
+
+    [build] bundle scripts
+
+[33mcommit 38a8b369c87839eb7625c94cd21069519aa9b9ba[m
+Author: liam <nhblong1234@gmail.com>
+Date:   Tue Mar 5 13:45:39 2024 +0700
+
+    [fix] insecure http request
+
+[33mcommit 1e9dd0f22ad70a4b62d2b0f983d6273e27f3909e[m
+Author: liam <nhblong1234@gmail.com>
+Date:   Tue Mar 5 13:35:26 2024 +0700
+
+    [fix] insecure http request
+
+[33mcommit fa0bd13eac6f13944badeb384611233230e0b9c2[m
+Author: liam <nhblong1234@gmail.com>
+Date:   Tue Mar 5 13:32:16 2024 +0700
+
+    [build] bundle scripts
+
+[33mcommit bf51f89e59abbae315948b565b3853050af80eec[m
+Author: liam <nhblong1234@gmail.com>
+Date:   Tue Mar 5 13:31:06 2024 +0700
+
+    [fix] insecure http request
+
+[33mcommit 5a9e427e331373e9735c0a56092f976a5bfde591[m
+Author: liam <nhblong1234@gmail.com>
+Date:   Tue Mar 5 13:28:46 2024 +0700
+
+    [fix] remove redundant files]
+
+[33mcommit 4d9a57e5736838755cf9e30a11c4160f894156b6[m
+Author: liam <nhblong1234@gmail.com>
+Date:   Tue Mar 5 13:17:44 2024 +0700
+
+    [fix] insecure http request
+
+[33mcommit 95c3738bd160a206d6aede4c717535da6dcc9924[m
+Author: liam <nhblong1234@gmail.com>
+Date:   Tue Mar 5 13:06:44 2024 +0700
+
+    [fix] insecure http request
+
+[33mcommit b0328a44a07bf8fac54e46657b5319f50b4080f7[m
+Author: liam <nhblong1234@gmail.com>
+Date:   Tue Mar 5 12:00:31 2024 +0700
+
+    [fix] fix fatal error on map search
+
+[33mcommit ef2426719f1f1741f4b8a3ee4b811fd85a9ede74[m
+Author: liam <nhblong1234@gmail.com>
+Date:   Tue Mar 5 11:29:42 2024 +0700
+
+    [fix] only use custom marker when it is set
+
+[33mcommit 31940870f59d36520974bbc918ff91afb0b52833[m
+Author: liam <nhblong1234@gmail.com>
+Date:   Tue Mar 5 10:43:52 2024 +0700
+
+    [feat] add a remove marker button
+
+[33mcommit 397492019543c62f3ecdb4e3a386b780eadd8364[m
+Author: liam <nhblong1234@gmail.com>
+Date:   Tue Mar 5 10:21:16 2024 +0700
+
+    [fix] react show content from wordpress
+
+[33mcommit 3cea0e69b2c1014bdff73e1f3eb2e403641fdded[m
+Author: liam <nhblong1234@gmail.com>
+Date:   Tue Mar 5 09:49:50 2024 +0700
+
+    [feat] add a remove marker button
+
+[33mcommit 054dc1cc59159d6239d72dbdbe80e56dc4d84439[m
+Author: liam <nhblong1234@gmail.com>
+Date:   Tue Mar 5 09:21:38 2024 +0700
+
+    [improve] security
+
+[33mcommit 19fa63d7923f589d8d9d638bf3f004d4e30e8ed0[m
+Author: liam <nhblong1234@gmail.com>
+Date:   Tue Mar 5 09:00:51 2024 +0700
+
+    dev...
+
+[33mcommit 3f1235aed75cbecaccc5e0b0d3f8011e7af024e2[m
+Author: liam <nhblong1234@gmail.com>
+Date:   Mon Mar 4 23:08:02 2024 +0700
+
+    dev...
+
+[33mcommit bcb7b0041a92046de526747c245e67655bb2c01a[m
+Author: liam <nhblong1234@gmail.com>
+Date:   Fri Mar 1 17:43:08 2024 +0700
+
+    dev...
+
+[33mcommit 24e59d3f95c1783160b21f3d0c1fbb68e7526f04[m
+Author: liam <nhblong1234@gmail.com>
+Date:   Thu Feb 29 16:38:51 2024 +0700
+
+    dev...
+
+[33mcommit f5126354f25ddc5bb9a8313fcb3338046b7b5bb4[m
+Author: liam <nhblong1234@gmail.com>
+Date:   Tue Feb 27 09:43:03 2024 +0700
+
+    first commit
