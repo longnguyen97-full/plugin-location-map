@@ -22,10 +22,11 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build:dev": "webpack --config webpack.config.dev.js",
+    "build:prod": "webpack --config webpack.config.prod.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "watch": "webpack --watch"
+    "watch:dev": "webpack --config webpack.config.dev.js --watch"
   },
   "eslintConfig": {
     "extends": [
