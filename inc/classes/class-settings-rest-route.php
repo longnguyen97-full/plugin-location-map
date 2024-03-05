@@ -1,7 +1,5 @@
 <?php
 
-// http://wp-plugin-liam.wsl/wp-json/lmap/v1/settings/
-
 class LMap_Settings_RestRoute
 {
     public function __construct()

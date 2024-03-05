@@ -23,7 +23,7 @@ class App extends React.Component {
       data: null,
       loading: true,
       error: null,
-      url: "http://wp-plugin-liam.wsl/wp-json/lmap/v1/settings/", // on localhost:3000
+      url: "https://pegasus.edu.vn/wp-json/lmap/v1/settings", // on localhost:3000
       showSearch: true,
       mapRef: React.createRef(),
       markerSize: [38, 38],
