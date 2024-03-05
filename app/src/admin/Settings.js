@@ -5,7 +5,9 @@ import FormSettings from "./components/FormSettings";
 function Settings() {
   return (
     <div className="wrap">
-      text
+      <Header />
+      <hr />
+      <FormSettings />
     </div>
   );
 }

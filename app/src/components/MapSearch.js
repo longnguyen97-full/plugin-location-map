@@ -1,3 +1,4 @@
+// libraries
 import { useEffect, useState, useRef } from "react";
 import { GeoSearchControl, OpenStreetMapProvider } from "leaflet-geosearch";
 import { useMap } from "react-leaflet";
@@ -7,107 +8,70 @@ import { Icon } from "leaflet";
 import axios from "axios";
 
 const MapSearch = (props) => {
-  const customIconRef = useRef(null);
+  // set a json url
+  const url = `${window.location.origin}/wp-json/lmap/v1/settings/`;
 
+  // set a default marker ref
+  const defaultMarkerRef = useRef(null);
+
+  // add a provider
   const provider = new OpenStreetMapProvider({
     params: {
       email: props.email,
     },
   });
 
-  const [url, setUrl] = useState(
-    "http://wp-plugin-liam.wsl/wp-json/lmap/v1/settings/"
-  );
-  const [data, setData] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(true);
-  if (window.appLocalizer) {
-    setUrl(`${window.appLocalizer.apiUrl}/lmap/v1/settings`);
-  }
-  const getSettings = () => {
-    axios
-      .get(url)
-      .then((response) => {
-        // handle successful response
-        console.log(response.data);
-        setData(response.data);
-      })
-      .catch((error) => {
-        // handle error
-        console.log(error.message);
-        setError(error.message);
-      })
-      .finally(() => {
-        // always executed
-        setLoading(false);
-      });
-  };
-
-  const getMarkerIcon = (marker, commonMarker, defaultMarker) => {
-    var markerIcon = defaultMarker;
-    if (commonMarker) {
-      markerIcon = commonMarker;
-    }
-    if (marker) {
-      console.log(marker);
-      markerIcon = marker;
-    }
-    return markerIcon;
-  };
-
-  const customIcon = new Icon({
-    iconUrl: markerIcon, // Provide the correct path to your custom icon
+  // create a default marker
+  const defaultMarker = new Icon({
+    iconUrl: markerIcon, // Provide the correct path to your default icon
     iconSize: [38, 38], // Adjust the size of the icon
   });
+  // Save a reference to the default marker
+  defaultMarkerRef.current = defaultMarker;
 
-  // Save a reference to the custom icon
-  customIconRef.current = customIcon;
-
+  // create a geosearch control
   const searchControl = new GeoSearchControl({
     provider: provider,
     showMarker: true,
     marker: {
-      icon: customIcon,
+      icon: defaultMarker,
       draggable: false,
     },
   });
 
+  // search to a place and update default marker for it
+  const updateMarkerOnSearch = () => {
+    const inputElement = document.querySelector(
+      "div.leaflet-control-geosearch.leaflet-geosearch-button form input.glass"
+    );
+    inputElement.addEventListener("keydown", handleUpdateMarkerOnSearch);
+    const resultElement = document.querySelector(
+      "div.leaflet-control-geosearch.leaflet-geosearch-button form div.results"
+    );
+    resultElement.addEventListener("click", handleUpdateMarkerOnSearch);
+  };
+  const handleUpdateMarkerOnSearch = async (event) => {
+    if (event.key === "Enter") {
+      // Execute your search logic here
+      const response = await axios.get(url);
+      const data = response.data;
+
+      // Change the custom icon via default marker ref
+      if (data.marker_path) {
+        defaultMarkerRef.options.iconUrl = data.marker_path;
+      }
+    }
+  };
+
+  // start to use geosearch control on the map
   const map = useMap();
   useEffect(() => {
     map.addControl(searchControl);
 
-    //
-    const inputElement = document.querySelector(
-      "div.leaflet-control-geosearch.leaflet-geosearch-button form input.glass"
-    );
-    inputElement.addEventListener("keydown", updateMarkerOnSearch);
-    const resultElement = document.querySelector(
-      "div.leaflet-control-geosearch.leaflet-geosearch-button form div.results"
-    );
-    resultElement.addEventListener("click", updateMarkerOnSearch);
-    // alert(geosearchEl);
+    updateMarkerOnSearch();
+
     return () => map.removeControl(searchControl);
   }, []);
-
-  const updateMarkerOnSearch = async (event) => {
-    if (event.key === "Enter") {
-      // Execute your search logic here
-      var url = "http://wp-plugin-liam.wsl/wp-json/lmap/v1/settings/";
-      if (window.appLocalizer) {
-        url = `${window.appLocalizer.apiUrl}/lmap/v1/settings`;
-      }
-      const response = await axios.get(url);
-      const data = response.data;
-
-      // Change the custom icon
-      if (data.marker_path) {
-        customIcon.options.iconUrl = data.marker_path;
-      }
-      if (data.marker_size) {
-        customIcon.options.iconSize = data.marker_size;
-      }
-    }
-  };
 
   return null;
 };
