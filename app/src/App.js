@@ -34,7 +34,8 @@ class App extends React.Component {
     // appLocalizer is not undefined: access custom url
     console.log(window.appLocalizer);
     if (window.appLocalizer) {
-      this.setState({ url: `${window.appLocalizer.apiUrl}/lmap/v1/settings/` });
+      //   this.setState({ url: `${window.appLocalizer.apiUrl}/lmap/v1/settings/` });
+      this.setState({ url: "https://pegasus.edu.vn/wp-json/lmap/v1/settings" });
     }
     // fetch data from api
     this.getSettings();
