@@ -19,13 +19,15 @@ class App extends React.Component {
     super(props);
 
     // avoid error: insecure http request
-    let protocol = window.location.protocol;
+    if (window.location.host === "wp-plugin-liam.wsl") {
+      var devUrl = "http://wp-plugin-liam.wsl/wp-json/lmap/v1/settings/";
+    }
     // manage states
     this.state = {
       data: null,
       loading: true,
       error: null,
-      url: `${protocol}//wp-plugin-liam.wsl/wp-json/lmap/v1/settings/`, // for dev on react
+      url: devUrl ?? "", // for dev on react
       showSearch: true,
       mapRef: React.createRef(),
       markerSize: [38, 38],
