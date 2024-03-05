@@ -1,10 +1,6 @@
 <?php
 
 /**
- * This file contains module function and include module classes for settings
- */
-
-/**
  * Enqueue scripts (CSS, JS, etc)
  */
 add_action('wp_enqueue_scripts', 'lmap_enqueue_scripts');
@@ -126,29 +122,5 @@ add_shortcode('lmap_shortcode', 'lmap_shortcode_init');
 function lmap_shortcode_init()
 {
     // Generate the content you want to display
-    return '<div id="root">root</div>';
+    return '<div id="root"></div>';
 }
-
-// Register settings and fields
-// function lmap_settings_init()
-// {
-//     register_setting('lmap-options-group', 'lmap_default_geocode');
-
-//     add_settings_section('lmap-options-section', 'Custom Options', 'lmap_options_section_callback', 'lmap-options');
-
-//     add_settings_field('lmap-field', 'Custom Field', 'lmap_field_callback', 'lmap-options', 'lmap-options-section');
-// }
-// // add_action('admin_init', 'lmap_settings_init');
-
-// // Settings section callback
-// function lmap_options_section_callback()
-// {
-//     echo '<p>Customize your options below:</p>';
-// }
-
-// // Field callback
-// function lmap_field_callback()
-// {
-//     $value = get_option('lmap_default_geocode');
-//     echo '<input type="text" name="lmap_default_geocode" value="' . esc_attr($value) . '">';
-// }

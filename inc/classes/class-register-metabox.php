@@ -107,7 +107,7 @@ class LMap_Metabox
                 <?php
                 if (!empty($meta_value)) {
                     ?>
-                    <img src="<?php echo $meta_value; ?>" alt="preview-media-box" width="38" height="38">
+                    <img src="<?php echo esc_url($meta_value); ?>" alt="preview-media-box" width="38" height="38">
                     <?php
                 }
                 ?>
