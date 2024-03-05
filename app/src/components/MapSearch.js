@@ -92,8 +92,7 @@ const MapSearch = (props) => {
   const updateMarkerOnSearch = async (event) => {
     if (event.key === "Enter") {
       // Execute your search logic here
-      console.log("Enter key pressed. Perform search...");
-      var url = "http://wp-plugin-liam.wsl/wp-json/lmap/v1/settings";
+      var url = "http://wp-plugin-liam.wsl/wp-json/lmap/v1/settings/";
       if (window.appLocalizer) {
         url = `${window.appLocalizer.apiUrl}/lmap/v1/settings`;
       }
@@ -101,8 +100,12 @@ const MapSearch = (props) => {
       const data = response.data;
 
       // Change the custom icon
-      customIcon.options.iconUrl = data.marker_path;
-      customIcon.options.iconSize = data.marker_size;
+      if (data.marker_path) {
+        customIcon.options.iconUrl = data.marker_path;
+      }
+      if (data.marker_size) {
+        customIcon.options.iconSize = data.marker_size;
+      }
     }
   };
 
