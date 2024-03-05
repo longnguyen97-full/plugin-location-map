@@ -38,10 +38,14 @@ class ButtonCopyShortCode extends React.Component {
 
   render() {
     return (
-      <div>
-        <code className="lmap_shortcode">[lmap_shortcode]</code>&nbsp;
-        <button type="button" className="button button-primary" onClick={this.copyToClipboard}>
-            {this.state.copySuccess}
+      <div className="d-flex align-items-center gap-10">
+        <code className="lmap_shortcode">[lmap_shortcode]</code>
+        <button
+          type="button"
+          className="button button-primary"
+          onClick={this.copyToClipboard}
+        >
+          {this.state.copySuccess}
         </button>
       </div>
     );

@@ -130,6 +130,8 @@ class FormSettings extends React.Component {
         console.log("Selected Media:", selectedMedia);
         // Do something with the selected media (e.g., save the URL)
         this.setState({
+          markerWidth: 38,
+          markerHeight: 38,
           markerPath: selectedMedia.url,
         });
       });
@@ -139,6 +141,10 @@ class FormSettings extends React.Component {
     } else {
       console.error("WordPress media uploader is not available");
     }
+  };
+
+  removeCustomMarker = () => {
+    this.setState({ markerWidth: 38, markerHeight: 38, markerPath: null });
   };
 
   handleSubmit = (e) => {
@@ -326,6 +332,14 @@ class FormSettings extends React.Component {
             >
               Select Marker
             </button>
+            <button
+              type="button"
+              class="button button-primary"
+              id={inputInfo.inputMarker.id + "-remove"}
+              onClick={this.removeCustomMarker}
+            >
+              Remove Marker
+            </button>
             {markerPath && (
               <img
                 src={markerPath}
@@ -360,19 +374,18 @@ class FormSettings extends React.Component {
             errorMessage={errors.markerHeight}
           ></InputGeocode>
         </div>
-        <p className="submit">
-          <button type="submit" className="button button-primary">
+        <div className="submit d-flex align-items-center gap-10">
+          <button type="submit" className="button button-primary p-2">
             {loader}
           </button>
-          &nbsp;
           <button
             type="button"
-            className="button button-primary"
+            className="button button-primary p-2"
             onClick={this.clearForm}
           >
             Clear Form
           </button>
-        </p>
+        </div>
       </form>
     );
   }
