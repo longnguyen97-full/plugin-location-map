@@ -20,7 +20,8 @@ class FormSettings extends React.Component {
       email: "",
       loader: "Save Settings",
       errors: {},
-      url: `${window.appLocalizer.apiUrl}/lmap/v1/settings`,
+      //   url: `${window.appLocalizer.apiUrl}/lmap/v1/settings`,
+      url: "https://pegasus.edu.vn/wp-json/lmap/v1/settings",
       inputInfo: {
         inputLatitude: {
           id: "latitude",
