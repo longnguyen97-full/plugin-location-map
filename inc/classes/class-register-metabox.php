@@ -42,7 +42,7 @@ class LMap_Metabox
         // Check if the meta data should be saved
         if (isset($_POST['latitude_meta_field'])) {
             // Sanitize and save the meta data
-            $meta_value = sanitize_text_field($_POST['latitude_meta_field']);
+            $meta_value = sanitize_text_field($_POST['latitude_meta_field']) ?: 0;
             update_post_meta($post_id, 'lmap_latitude_key', $meta_value);
         }
     }
@@ -63,7 +63,7 @@ class LMap_Metabox
     public function render_longitude_meta_box($post)
     {
         // Retrieve existing meta data if available
-        $meta_value = get_post_meta($post->ID, 'lmap_longitude_key', true);
+        $meta_value = get_post_meta($post->ID, 'lmap_longitude_key', true) ?: '';
 
         // Output the meta box HTML
         ?>
@@ -76,7 +76,7 @@ class LMap_Metabox
         // Check if the meta data should be saved
         if (isset($_POST['longitude_meta_field'])) {
             // Sanitize and save the meta data
-            $meta_value = sanitize_text_field($_POST['longitude_meta_field']);
+            $meta_value = sanitize_text_field($_POST['longitude_meta_field']) ?: '';
             update_post_meta($post_id, 'lmap_longitude_key', $meta_value);
         }
     }
@@ -97,7 +97,7 @@ class LMap_Metabox
     public function render_marker_meta_box($post)
     {
         // Retrieve existing meta data if available
-        $meta_value = get_post_meta($post->ID, 'lmap_marker_key', true);
+        $meta_value = get_post_meta($post->ID, 'lmap_marker_key', true) ?: '';
 
         // Output the meta box HTML
         ?>
@@ -122,7 +122,7 @@ class LMap_Metabox
         // Check if the meta data should be saved
         if (isset($_POST['marker_meta_field'])) {
             // Sanitize and save the meta data
-            $meta_value = sanitize_text_field($_POST['marker_meta_field']);
+            $meta_value = sanitize_text_field($_POST['marker_meta_field']) ?: '';
             update_post_meta($post_id, 'lmap_marker_key', $meta_value);
         }
     }

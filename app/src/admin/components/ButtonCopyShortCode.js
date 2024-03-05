@@ -1,6 +1,5 @@
 // libraries
 import React from "react";
-import Button from "react-bootstrap/Button";
 
 class ButtonCopyShortCode extends React.Component {
   constructor(props) {
@@ -41,9 +40,9 @@ class ButtonCopyShortCode extends React.Component {
     return (
       <div>
         <code className="lmap_shortcode">[lmap_shortcode]</code>&nbsp;
-        <Button onClick={this.copyToClipboard} variant="primary" size="sm">
-          {this.state.copySuccess}
-        </Button>
+        <button type="button" className="button button-primary" onClick={this.copyToClipboard}>
+            {this.state.copySuccess}
+        </button>
       </div>
     );
   }

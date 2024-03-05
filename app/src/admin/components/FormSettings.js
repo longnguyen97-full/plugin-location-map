@@ -116,10 +116,7 @@ class FormSettings extends React.Component {
     if (typeof window.wp !== "undefined" && window.wp.media) {
       // Open the media popup
       const mediaFrame = window.wp.media({
-        title: "Select or Upload Media",
-        button: {
-          text: "Use this media",
-        },
+        title: "Select Media",
         multiple: false, // Set to true for multiple file selection
       });
 
@@ -320,27 +317,25 @@ class FormSettings extends React.Component {
           <small class="form-text text-muted">
             Set a custom marker you want to show on the map.
           </small>
-          <div class="custom-file w-50">
-            <input
+          <div className="d-flex align-items-center gap-10 mt-3">
+            <button
               type="button"
-              class="custom-file-input"
+              class="button button-primary"
               id={inputInfo.inputMarker.id}
               onClick={this.openWPMedia}
-            />
-            <label class="custom-file-label" for={inputInfo.inputMarker.id}>
+            >
               Select Marker
-            </label>
+            </button>
+            {markerPath && (
+              <img
+                src={markerPath}
+                alt={inputInfo.inputMarker.label}
+                width={markerWidth}
+                height={markerHeight}
+                className="vertical-baseline"
+              />
+            )}
           </div>
-          &nbsp;
-          {markerPath && (
-            <img
-              src={markerPath}
-              alt={inputInfo.inputMarker.label}
-              width={markerWidth}
-              height={markerHeight}
-              className="vertical-baseline"
-            />
-          )}
           {errors.markerPath && (
             <div className="alert alert-danger" role="alert">
               {errors.markerPath}
@@ -366,13 +361,13 @@ class FormSettings extends React.Component {
           ></InputGeocode>
         </div>
         <p className="submit">
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="button button-primary">
             {loader}
           </button>
           &nbsp;
           <button
             type="button"
-            className="btn btn-primary"
+            className="button button-primary"
             onClick={this.clearForm}
           >
             Clear Form

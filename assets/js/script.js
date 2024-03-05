@@ -4,18 +4,9 @@
      * allow access media from post editor
      */
     // Add a select media button
-    let element = `<button type="button" class="button button-primary" id="lmap-select-media-button">Select Media</button>`;
-    // console.log(window);
-    // if () {
-    //     element += `<img
-    //     src={markerPath}
-    //     alt={inputInfo.inputMarker.label}
-    //     width={markerWidth}
-    //     height={markerHeight}
-    //     class="vertical-baseline"
-    //     />`;
-    // }
-    $("#lmap-select-media-box").html(element);
+    $("#lmap-select-media-box").html(
+      `<button type="button" class="button button-primary" id="lmap-select-media-button">Select Marker</button>`
+    );
 
     // Define behavior for your button
     $("#lmap-select-media-button").on("click", function () {

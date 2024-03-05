@@ -1,32 +1,39 @@
 <?php
 
-// enqueue
-add_action('wp_enqueue_scripts', 'load_scripts');
-function load_scripts()
+/**
+ * This file contains module function and include module classes for settings
+ */
+
+/**
+ * Enqueue scripts (CSS, JS, etc)
+ */
+add_action('wp_enqueue_scripts', 'lmap_enqueue_scripts');
+function lmap_enqueue_scripts()
 {
     // JS
-    wp_enqueue_script('location-map', LMAP__PLUGIN_URL . 'app/dist/main.bundle.js', array('jquery', 'wp-element'), wp_rand(), true);
-    // Localize
-    wp_localize_script('location-map', 'appLocalizer', array(
+    wp_enqueue_script('main-bundle', LMAP__PLUGIN_URL . 'app/dist/main.bundle.js', array('jquery', 'wp-element'), wp_rand(), true);
+    // Localize for main-bundle
+    wp_localize_script('main-bundle', 'appLocalizer', array(
         'apiUrl' => home_url('/wp-json'),
-        'nonce' => wp_create_nonce('wp_rest'),
+        'nonce'  => wp_create_nonce('wp_rest'),
     ));
 }
 
-add_action('admin_enqueue_scripts', 'admin_load_scripts');
-function admin_load_scripts()
+add_action('admin_enqueue_scripts', 'lmap_admin_enqueue_scripts');
+add_action('admin_enqueue_scripts', 'lmap_admin_enqueue_scripts');
+function lmap_admin_enqueue_scripts()
 {
     // JS
-    wp_enqueue_script('location-map-admin', LMAP__PLUGIN_URL . 'app/dist/admin.bundle.js', array('jquery', 'wp-element'), wp_rand(), true);
+    wp_enqueue_script('admin-bundle', LMAP__PLUGIN_URL . 'app/dist/admin.bundle.js', array('jquery', 'wp-element'), wp_rand(), true);
     wp_enqueue_script('bootstrap', LMAP__PLUGIN_URL . 'assets/bootstrap/js/bootstrap.min.js', array('jquery'), wp_rand(), true);
     wp_enqueue_script('script', LMAP__PLUGIN_URL . 'assets/js/script.js', array('jquery'), wp_rand(), true);
     // CSS
     wp_enqueue_style('bootstrap', LMAP__PLUGIN_URL . 'assets/bootstrap/css/bootstrap.min.css', null, wp_rand(), false);
-    wp_enqueue_style('main', LMAP__PLUGIN_URL . 'assets/css/style.css', null, wp_rand(), false);
-    // Localize
-    wp_localize_script('location-map-admin', 'appLocalizer', array(
+    wp_enqueue_style('style', LMAP__PLUGIN_URL . 'assets/css/style.css', null, wp_rand(), false);
+    // Localize for admin-bundle
+    wp_localize_script('admin-bundle', 'appLocalizer', array(
         'apiUrl' => home_url('/wp-json'),
-        'nonce' => wp_create_nonce('wp_rest'),
+        'nonce'  => wp_create_nonce('wp_rest'),
     ));
     // Media popup
     wp_enqueue_media();
@@ -37,6 +44,7 @@ function admin_load_scripts()
  *
  * @see get_post_type_labels() for label keys.
  */
+add_action('init', 'lmap_post_type_init');
 function lmap_post_type_init()
 {
     $labels = array(
@@ -85,13 +93,11 @@ function lmap_post_type_init()
     register_post_type('marker', $args);
 }
 
-add_action('init', 'lmap_post_type_init');
-
-// Settings page
-// Hook into the admin menu setup action
-add_action('admin_menu', 'register_lmap_settings_page');
-
-function register_lmap_settings_page()
+/**
+ * Register settings page
+ */
+add_action('admin_menu', 'lmap_settings_page_init');
+function lmap_settings_page_init()
 {
     // Add submenu page to your custom post type menu
     add_submenu_page(
@@ -100,50 +106,49 @@ function register_lmap_settings_page()
         'Settings', // Menu title
         'manage_options', // Capability required to access the page
         'lmap_settings_page', // Page slug
-        'render_lmap_settings_page' // Callback function to render the page content
+        'lmap_settings_page_render' // Callback function to render the page content
     );
 }
 
-function render_lmap_settings_page()
+/**
+ * A callback function for rendering data on settings page
+ */
+function lmap_settings_page_render()
 {
     // Render your settings page content here
     echo '<div id="root-admin"></div>';
 }
 
-// Shortcode
-function lmap_shortcode()
+/**
+ * A shortcode for rendering data on user view
+ */
+add_shortcode('lmap_shortcode', 'lmap_shortcode_init');
+function lmap_shortcode_init()
 {
     // Generate the content you want to display
-    $output = '<div>This is a lmap shortcode content.</div>';
-    $output .= '<div id="root">root</div>';
-    return $output;
+    return '<div id="root">root</div>';
 }
-add_shortcode('lmap_shortcode', 'lmap_shortcode');
-
-// register ultilities
-include_once 'classes/class-register-metabox.php';
-include_once 'classes/class-settings-rest-route.php';
 
 // Register settings and fields
-function lmap_settings_init()
-{
-    register_setting('lmap-options-group', 'lmap_default_geocode');
+// function lmap_settings_init()
+// {
+//     register_setting('lmap-options-group', 'lmap_default_geocode');
 
-    add_settings_section('lmap-options-section', 'Custom Options', 'lmap_options_section_callback', 'lmap-options');
+//     add_settings_section('lmap-options-section', 'Custom Options', 'lmap_options_section_callback', 'lmap-options');
 
-    add_settings_field('lmap-field', 'Custom Field', 'lmap_field_callback', 'lmap-options', 'lmap-options-section');
-}
-add_action('admin_init', 'lmap_settings_init');
+//     add_settings_field('lmap-field', 'Custom Field', 'lmap_field_callback', 'lmap-options', 'lmap-options-section');
+// }
+// // add_action('admin_init', 'lmap_settings_init');
 
-// Settings section callback
-function lmap_options_section_callback()
-{
-    echo '<p>Customize your options below:</p>';
-}
+// // Settings section callback
+// function lmap_options_section_callback()
+// {
+//     echo '<p>Customize your options below:</p>';
+// }
 
-// Field callback
-function lmap_field_callback()
-{
-    $value = get_option('lmap_default_geocode');
-    echo '<input type="text" name="lmap_default_geocode" value="' . esc_attr($value) . '">';
-}
+// // Field callback
+// function lmap_field_callback()
+// {
+//     $value = get_option('lmap_default_geocode');
+//     echo '<input type="text" name="lmap_default_geocode" value="' . esc_attr($value) . '">';
+// }
