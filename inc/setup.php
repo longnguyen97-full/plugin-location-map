@@ -16,7 +16,6 @@ function lmap_enqueue_scripts()
 }
 
 add_action('admin_enqueue_scripts', 'lmap_admin_enqueue_scripts');
-add_action('admin_enqueue_scripts', 'lmap_admin_enqueue_scripts');
 function lmap_admin_enqueue_scripts()
 {
     // JS
