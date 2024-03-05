@@ -19,7 +19,7 @@ class App extends React.Component {
     super(props);
 
     // avoid error: insecure http request
-    if (window.location.host === "wp-plugin-liam.wsl") {
+    if (window.location.host === "localhost:3000") {
       var devUrl = "http://wp-plugin-liam.wsl/wp-json/lmap/v1/settings/";
     }
     // manage states
