@@ -9,9 +9,7 @@ import axios from "axios";
 
 const MapSearch = (props) => {
   // set a json url
-  const url = window.appLocalizer
-    ? `${window.appLocalizer.apiUrl}/lmap/v1/settings/`
-    : global.config.api; // on localhost:3000
+  const url = global.config.api;
 
   // set a default marker ref
   const defaultMarkerRef = useRef(null);

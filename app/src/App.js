@@ -20,10 +20,10 @@ class App extends React.Component {
 
     // manage states
     this.state = {
-      data: null,
+      mapData: null,
       loading: true,
       error: null,
-      url: global.config.api, // on localhost:3000
+      url: global.config.api,
       showSearch: true,
       mapRef: React.createRef(),
       markerSize: [38, 38],
@@ -31,10 +31,6 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    // appLocalizer is not undefined: access custom url
-    if (window.appLocalizer) {
-      this.setState({ url: `${window.appLocalizer.apiUrl}/lmap/v1/settings/` });
-    }
     // fetch data from api
     this.getSettings();
   }
@@ -44,7 +40,7 @@ class App extends React.Component {
       .get(this.state.url)
       .then((response) => {
         // handle successful response
-        this.setState({ data: response.data });
+        this.setState({ mapData: response.data });
       })
       .catch((error) => {
         // handle error
@@ -68,7 +64,8 @@ class App extends React.Component {
   }
 
   render() {
-    const { data, loading, error, showSearch, mapRef, markerSize } = this.state;
+    const { mapData, loading, error, showSearch, mapRef, markerSize } =
+      this.state;
 
     if (loading) {
       return <div>Loading...</div>;
@@ -80,15 +77,15 @@ class App extends React.Component {
     return (
       <MapContainer
         ref={mapRef}
-        center={data.default_geocode}
-        zoom={data.default_zoom}
+        center={mapData.default_geocode}
+        zoom={mapData.default_zoom}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         ></TileLayer>
-        {data.markers &&
-          data.markers.map((marker, key) => (
+        {mapData.markers &&
+          mapData.markers.map((marker, key) => (
             <Marker
               key={key}
               position={marker.geocode}
@@ -96,10 +93,10 @@ class App extends React.Component {
                 new Icon({
                   iconUrl: this.getMarkerIcon(
                     marker.marker,
-                    data.marker_path,
+                    mapData.marker_path,
                     markerIcon
                   ),
-                  iconSize: data.marker_size ?? markerSize,
+                  iconSize: mapData.marker_size ?? markerSize,
                 })
               }
             >
@@ -115,7 +112,7 @@ class App extends React.Component {
               </Popup>
             </Marker>
           ))}
-        {showSearch && <MapSearch email={data.openstreetmap_email} />}
+        {showSearch && <MapSearch email={mapData.openstreetmap_email} />}
       </MapContainer>
     );
   }

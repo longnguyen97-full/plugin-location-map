@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import "../index.css";
 import Settings from "./Settings";
 import reportWebVitals from "../reportWebVitals";
+import '../config';
 
 const root = ReactDOM.createRoot(document.getElementById("root-admin"));
 root.render(
