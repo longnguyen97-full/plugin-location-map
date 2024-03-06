@@ -3,10 +3,9 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import './config';
+import "./config";
 
-const el   = window.location.host === 'localhost:3000' ? document.getElementById("root") : document.getElementById("root-user");
-const root = ReactDOM.createRoot( document.getElementById("root-user"));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <App />
