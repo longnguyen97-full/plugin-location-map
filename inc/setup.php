@@ -124,5 +124,5 @@ add_shortcode('lmap_shortcode', 'lmap_shortcode_init');
 function lmap_shortcode_init()
 {
     // Generate the content you want to display
-    // return '<div id="root"></div>';
+    return '<div id="root"></div>';
 }
