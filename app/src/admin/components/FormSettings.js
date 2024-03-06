@@ -20,7 +20,7 @@ class FormSettings extends React.Component {
       email: "",
       loader: "Save Settings",
       errors: {},
-      url: global.config.api, // on localhost:3000
+      url: global.config.api,
       inputInfo: {
         inputLatitude: {
           id: "latitude",
@@ -58,10 +58,6 @@ class FormSettings extends React.Component {
   }
 
   componentDidMount() {
-    // appLocalizer is not undefined: access custom url
-    if (window.appLocalizer) {
-      this.setState({ url: `${window.appLocalizer.apiUrl}/lmap/v1/settings/` });
-    }
     // fetch data from api
     this.fillSettingsData();
   }
@@ -205,7 +201,6 @@ class FormSettings extends React.Component {
       // Form is valid, submit data
       this.setState({ loader: "Saving..." });
       this.setState({ errors: {} });
-      console.log(zoom);
       axios
         .post(
           url,

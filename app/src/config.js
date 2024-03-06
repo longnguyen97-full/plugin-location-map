@@ -1,3 +1,5 @@
 module.exports = global.config = {
-  api: "http://wp-plugin-liam.wsl/wp-json/lmap/v1/settings/",
+  api: window.appLocalizer
+    ? `${window.appLocalizer.apiUrl}/lmap/v1/settings/`
+    : "http://localhost:81/wp-plugin-liam/wp-json/lmap/v1/settings/",
 };
