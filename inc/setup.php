@@ -8,6 +8,8 @@ function lmap_enqueue_scripts()
 {
     // JS
     wp_enqueue_script('main-bundle', LMAP__PLUGIN_URL . 'app/dist/main.bundle.js', array('jquery', 'wp-element'), wp_rand(), true);
+    // CSS
+    wp_enqueue_style('main-bundle', LMAP__PLUGIN_URL . 'app/dist/main.bundle.css', null, wp_rand(), false);
     // Localize for main-bundle
     wp_localize_script('main-bundle', 'appLocalizer', array(
         'apiUrl' => home_url('/wp-json'),
@@ -23,6 +25,7 @@ function lmap_admin_enqueue_scripts()
     wp_enqueue_script('bootstrap', LMAP__PLUGIN_URL . 'assets/bootstrap/js/bootstrap.min.js', array('jquery'), wp_rand(), true);
     wp_enqueue_script('script', LMAP__PLUGIN_URL . 'assets/js/script.js', array('jquery'), wp_rand(), true);
     // CSS
+    wp_enqueue_style('admin-bundle', LMAP__PLUGIN_URL . 'app/dist/admin.bundle.css', null, wp_rand(), false);
     wp_enqueue_style('bootstrap', LMAP__PLUGIN_URL . 'assets/bootstrap/css/bootstrap.min.css', null, wp_rand(), false);
     wp_enqueue_style('style', LMAP__PLUGIN_URL . 'assets/css/style.css', null, wp_rand(), false);
     // Localize for admin-bundle
@@ -121,5 +124,5 @@ add_shortcode('lmap_shortcode', 'lmap_shortcode_init');
 function lmap_shortcode_init()
 {
     // Generate the content you want to display
-    return '<div id="root">root</div>';
+    return '<div id="root-user"></div>';
 }

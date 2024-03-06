@@ -26,8 +26,8 @@ module.exports = {
       },
     }),
     new MiniCssExtractPlugin({
-      filename: "[name].[contenthash].css",
-      chunkFilename: "[id].[contenthash].css",
+      filename: "[name].bundle.css",
+      chunkFilename: "[id].bundle.css",
     }),
     new CleanWebpackPlugin(),
   ],

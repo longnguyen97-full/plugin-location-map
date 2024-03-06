@@ -5,7 +5,8 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import './config';
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const el   = window.location.host === 'localhost:3000' ? document.getElementById("root") : document.getElementById("root-view");
+const root = ReactDOM.createRoot(el);
 root.render(
   <React.StrictMode>
     <App />
