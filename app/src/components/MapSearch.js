@@ -11,7 +11,7 @@ const MapSearch = (props) => {
   // set a json url
   const url = window.appLocalizer
     ? `${window.appLocalizer.apiUrl}/lmap/v1/settings/`
-    : "http://wp-plugin-liam.wsl/wp-json/lmap/v1/settings/";
+    : global.config.api; // on localhost:3000
 
   // set a default marker ref
   const defaultMarkerRef = useRef(null);

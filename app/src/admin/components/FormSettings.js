@@ -20,7 +20,7 @@ class FormSettings extends React.Component {
       email: "",
       loader: "Save Settings",
       errors: {},
-      url: "http://wp-plugin-liam.wsl/wp-json/lmap/v1/settings/", // on localhost:3000
+      url: global.config.api, // on localhost:3000
       inputInfo: {
         inputLatitude: {
           id: "latitude",
@@ -269,7 +269,7 @@ class FormSettings extends React.Component {
           <h3>Set default Geocode</h3>
           <small
             id={inputInfo.inputLatitude.id + "-" + inputInfo.inputLongitude.id}
-            class="form-text text-muted"
+            className="form-text text-muted"
           >
             Set latitude and longitude to mark center of the map by default.
           </small>
@@ -294,7 +294,7 @@ class FormSettings extends React.Component {
         </div>
         <div className="mt-3">
           <h3>Set default zoom</h3>
-          <small class="form-text text-muted">
+          <small className="form-text text-muted">
             Set zoom to scale the map in and out, zoom will be 0 by default.
           </small>
           <InputGeocode
@@ -309,7 +309,7 @@ class FormSettings extends React.Component {
         </div>
         <div className="mt-3">
           <h3>Set OpenStreetMap email</h3>
-          <small class="form-text text-muted">
+          <small className="form-text text-muted">
             Set email to use OpenStreetMap on the large requests.
           </small>
           <InputGeocode
@@ -324,13 +324,13 @@ class FormSettings extends React.Component {
         </div>
         <div className="mt-3">
           <h3>Set custom marker</h3>
-          <small class="form-text text-muted">
+          <small className="form-text text-muted">
             Set a custom marker you want to show on the map.
           </small>
           <div className="d-flex align-items-center gap-10 mt-3">
             <button
               type="button"
-              class="button button-primary"
+              className="button button-primary"
               id={inputInfo.inputMarker.id}
               onClick={this.openWPMedia}
             >
@@ -338,7 +338,7 @@ class FormSettings extends React.Component {
             </button>
             <button
               type="button"
-              class="button button-primary"
+              className="button button-primary"
               id={inputInfo.inputMarker.id + "-remove"}
               onClick={this.removeCustomMarker}
             >

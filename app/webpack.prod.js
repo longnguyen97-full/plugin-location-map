@@ -35,12 +35,20 @@ module.exports = {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: ["babel-loader"],
+        exclude: /(node_modules|build)/,
+        use: {
+          loader: "babel-loader",
+        },
       },
       {
-        test: /\.css$/,
+        test: /\.(sass|css|scss)$/,
         use: [MiniCssExtractPlugin.loader, "css-loader"],
+      },
+      {
+        test: /\.(jpe?g|png|gif|woff|woff2|eot|ttf|svg)(\?[a-z0-9=.]+)?$/,
+        use: {
+          loader: "url-loader?limit=100000",
+        },
       },
     ],
   },
