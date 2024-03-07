@@ -79,6 +79,7 @@ class App extends React.Component {
         ref={mapRef}
         center={mapData.default_geocode}
         zoom={mapData.default_zoom}
+        scrollWheelZoom={false}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
