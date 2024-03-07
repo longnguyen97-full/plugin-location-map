@@ -26,3 +26,15 @@ define('INC', plugin_dir_path(__FILE__) . 'inc/');
 include_once INC . 'setup.php';
 include_once INC . 'classes/class-register-metabox.php';
 include_once INC . 'classes/class-settings-rest-route.php';
+
+// Init map data
+register_activation_hook(__FILE__,  'init_map_data');
+function init_map_data()
+{
+    update_option('lmap_default_latitude', 0);
+    update_option('lmap_default_longitude', 0);
+    update_option('lmap_default_zoom', 0);
+    // markerSize: width, height
+    update_option('lmap_marker_width', 38);
+    update_option('lmap_marker_height', 38);
+}

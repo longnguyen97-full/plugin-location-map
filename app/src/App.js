@@ -26,7 +26,6 @@ class App extends React.Component {
       url: global.config.api,
       showSearch: true,
       mapRef: React.createRef(),
-      markerSize: [38, 38],
     };
   }
 
@@ -64,8 +63,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { mapData, loading, error, showSearch, mapRef, markerSize } =
-      this.state;
+    const { mapData, loading, error, showSearch, mapRef } = this.state;
 
     if (loading) {
       return <div>Loading...</div>;
@@ -97,7 +95,7 @@ class App extends React.Component {
                     mapData.marker_path,
                     markerIcon
                   ),
-                  iconSize: mapData.marker_size ?? markerSize,
+                  iconSize: mapData.marker_size,
                 })
               }
             >
