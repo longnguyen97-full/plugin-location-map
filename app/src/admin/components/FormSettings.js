@@ -21,6 +21,9 @@ class FormSettings extends React.Component {
       loader: "Save Settings",
       errors: {},
       url: global.config.api,
+      markerPath: null,
+      markerWidth: 0,
+      markerHeight: 0,
       inputInfo: {
         inputLatitude: {
           id: "latitude",
@@ -51,9 +54,6 @@ class FormSettings extends React.Component {
           label: "Marker Height",
         },
       },
-      markerWidth: 0,
-      markerHeight: 0,
-      markerPath: null,
     };
   }
 
@@ -63,7 +63,6 @@ class FormSettings extends React.Component {
   }
 
   handleChange = (e) => {
-    console.log(e.target.value);
     this.setState({
       [e.target.name]: e.target.value,
     });
@@ -150,33 +149,18 @@ class FormSettings extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const {
+      url,
       latitude,
       longitude,
       zoom,
       email,
       markerPath,
-      url,
       markerWidth,
       markerHeight,
     } = this.state;
     const errors = {};
 
     // validate data
-    if (latitude.trim() === "") {
-      errors.latitude = "Latitude is required";
-    }
-    if (longitude.trim() === "") {
-      errors.longitude = "Longitude is required";
-    }
-    if (!zoom) {
-      this.setState({ zoom: 0 });
-    }
-    if (!markerWidth) {
-      this.setState({ markerWidth: 0 });
-    }
-    if (!markerHeight) {
-      this.setState({ markerHeight: 0 });
-    }
     if (isNaN(latitude)) {
       errors.latitude = "Latitude must be a number";
     }
@@ -190,10 +174,10 @@ class FormSettings extends React.Component {
       errors.email = "Email must be a valid string";
     }
     if (isNaN(markerWidth)) {
-      errors.markerWidth = "Width must be a number";
+      errors.markerWidth = "Marker width must be a number";
     }
     if (isNaN(markerHeight)) {
-      errors.markerHeight = "Height must be a number";
+      errors.markerHeight = "Marker height must be a number";
     }
 
     // handle data
@@ -232,15 +216,15 @@ class FormSettings extends React.Component {
     }
   };
 
-  clearForm = () => {
+  resetForm = () => {
     this.setState({
-      latitude: "",
-      longitude: "",
-      zoom: "",
+      latitude: 0,
+      longitude: 0,
+      zoom: 0,
       email: "",
       markerPath: null,
-      markerWidth: "",
-      markerHeight: "",
+      markerWidth: 38,
+      markerHeight: 38,
     });
   };
 
@@ -252,10 +236,10 @@ class FormSettings extends React.Component {
       email,
       errors,
       loader,
-      inputInfo,
       markerPath,
       markerWidth,
       markerHeight,
+      inputInfo,
     } = this.state;
 
     return (
@@ -353,7 +337,7 @@ class FormSettings extends React.Component {
             <div className="alert alert-danger" role="alert">
               {errors.markerPath}
             </div>
-          )}{" "}
+          )}
           <InputGeocode
             type="number"
             label={inputInfo.inputMarkerWidth.label}
@@ -380,9 +364,9 @@ class FormSettings extends React.Component {
           <button
             type="button"
             className="button button-primary p-2"
-            onClick={this.clearForm}
+            onClick={this.resetForm}
           >
-            Clear Form
+            Reset Form
           </button>
         </div>
       </form>
